@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 //A routine used to convert the PI code from RBDS block A to a station callsign
 //Valid for the US only
@@ -14,7 +15,7 @@ int main()
     printf("Enter a 16-bit hexadecimal pi code: ");
     scanf("%x", &picode);
 
-    printf("Converting code %x\n", picode);
+    printf("Converting code %X\n", picode);
 
     if(PiToCallsign(picode, callsign) == 0)
     {
@@ -58,7 +59,9 @@ uint8_t PiToCallsign(uint16_t picode, char *callsign)
 	}
 	else
     {
-        callsign = "INVL";
+        //Don't have to overwrite the callsign here
+        //Could do nothing or put some other text here.
+        memset(callsign, 0, 4);
         return 1;
     }
 }
